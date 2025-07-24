@@ -20,7 +20,6 @@ class ModernPortfolio {
     document.addEventListener('DOMContentLoaded', () => {
       this.preloadCriticalResources();
       this.optimizeInitialRender();
-      this.initMobileMenu();
     });
 
     window.addEventListener('scroll', this.debounce(this.handleScroll.bind(this), 16));
@@ -34,87 +33,6 @@ class ModernPortfolio {
     }
   }
 
-  initMobileMenu() {
-    const navToggle = document.querySelector('#navToggle');
-    const navMenu = document.querySelector('.nav-menu');
-    const menuIcon = document.querySelector('#menuIcon');
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    if (navToggle && navMenu && menuIcon) {
-      // Toggle menu function
-      const toggleMenu = (forceClose = false) => {
-        const isOpen = navMenu.classList.contains('active');
-        
-        if (isOpen || forceClose) {
-          navMenu.classList.remove('active');
-          menuIcon.className = 'bi bi-list';
-          document.body.style.overflow = '';
-          navToggle.setAttribute('aria-expanded', 'false');
-        } else {
-          navMenu.classList.add('active');
-          menuIcon.className = 'bi bi-x-lg';
-          document.body.style.overflow = 'hidden';
-          navToggle.setAttribute('aria-expanded', 'true');
-        }
-      };
-
-      // Handle menu toggle click
-      navToggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleMenu();
-      });
-
-      // Handle navigation link clicks
-      navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-          const href = link.getAttribute('href');
-          
-          // Close menu immediately
-          toggleMenu(true);
-          
-          // Handle different types of links
-          if (href.startsWith('#')) {
-            // Same page anchor links
-            e.preventDefault();
-            const targetSection = document.querySelector(href);
-            if (targetSection) {
-              const offsetTop = targetSection.offsetTop - 80;
-              setTimeout(() => {
-                window.scrollTo({
-                  top: offsetTop,
-                  behavior: 'smooth'
-                });
-              }, 300);
-            }
-          } else if (href.includes('.html')) {
-            // Different page links - let default behavior handle navigation
-            // Menu will close and page will navigate normally
-          }
-        });
-      });
-
-      // Close menu when clicking outside
-      document.addEventListener('click', (e) => {
-        if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
-          toggleMenu(true);
-        }
-      });
-
-      // Close menu on escape key
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          toggleMenu(true);
-        }
-      });
-
-      // Close menu on window resize (when switching to desktop)
-      window.addEventListener('resize', () => {
-        if (window.innerWidth > 768) {
-          toggleMenu(true);
-        }
-      });
-    }
-  }
 
   debounce(func, wait) {
     let timeout;
@@ -456,14 +374,6 @@ class ModernPortfolio {
 
   handleResize() {
     this.updateViewportHeight();
-    
-    if (window.innerWidth > 768) {
-      const navMenu = document.querySelector('.nav-menu');
-      if (navMenu) {
-        navMenu.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-    }
   }
 
   handleLoad() {
@@ -472,13 +382,6 @@ class ModernPortfolio {
   }
 
   handleKeydown(e) {
-    if (e.key === 'Escape') {
-      const navMenu = document.querySelector('.nav-menu');
-      if (navMenu && navMenu.classList.contains('active')) {
-        this.toggleMobileMenu();
-      }
-    }
-    
     if (e.key === 'Tab') {
       document.body.classList.add('keyboard-nav');
     }
@@ -640,49 +543,7 @@ class ModernPortfolio {
   }
 }
 
-const mobileMenuStyles = `
-  @media (max-width: 767px) {
-    .nav-menu {
-      position: fixed;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: var(--surface);
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem;
-      box-shadow: var(--shadow-lg);
-      transform: translateY(-100%);
-      opacity: 0;
-      visibility: hidden;
-      transition: all var(--transition-normal);
-      z-index: 999;
-    }
-    
-    .nav-menu.active {
-      transform: translateY(0);
-      opacity: 1;
-      visibility: visible;
-    }
-    
-    .nav-toggle.active span:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
-    
-    .nav-toggle.active span:nth-child(2) {
-      opacity: 0;
-    }
-    
-    .nav-toggle.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -6px);
-    }
-    
-    .navbar.scrolled {
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(20px);
-    }
-  }
-  
+const additionalStyles = `
   .field-error {
     color: var(--secondary-color);
     font-size: var(--font-size-sm);
@@ -711,7 +572,7 @@ const mobileMenuStyles = `
 `;
 
 const styleSheet = document.createElement('style');
-styleSheet.textContent = mobileMenuStyles;
+styleSheet.textContent = additionalStyles;
 document.head.appendChild(styleSheet);
 
 new ModernPortfolio();
