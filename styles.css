@@ -1392,6 +1392,11 @@ section {
   color: var(--primary-color);
 }
 
+.skills-detailed {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
 .skills-categories {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -2631,6 +2636,15 @@ section {
   
   .form-row {
     grid-template-columns: 1fr;
+  }
+  
+  .about-grid-detailed {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .about-sidebar {
+    order: -1;
   }
   
   .social-grid {
