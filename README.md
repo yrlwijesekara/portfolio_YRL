@@ -184,7 +184,7 @@ open index.html
 **Let's build something amazing together!**
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-YRL_Wijesekara-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/yrlwijesekara)
-[![Email](https://img.shields.io/badge/Email-yrlwijesekara2004@gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:yrlwijesekara2004@gmail.com)
+[![Email](https://img.shields.io/badge/Email-yehanjb@gmail.com.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:yehanjb@gmail.com)
 [![Instagram](https://img.shields.io/badge/Instagram-@yrl_wijesekara-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/yrl_wijesekara)
 
 </div>
